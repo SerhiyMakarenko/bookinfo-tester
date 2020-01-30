@@ -5,8 +5,6 @@ from time import sleep
 from libs.setup_lib import run_command, check_environment, download_file, wait_pods_are_running, get_ingress_ip, validate_page
 from libs.tester_lib import reviews_v1_testing, reviews_v2_testing, reviews_v3_testing
 
-ip = get_ingress_ip("istio-system", "istio-ingressgateway")
-
 
 def prerun_check():
     print("Checking environment...")
@@ -50,12 +48,14 @@ def bookinfo_install():
     run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/platform/kube/bookinfo.yaml", True)
     wait_pods_are_running("default")
     run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/bookinfo-gateway.yaml", True)
+    ip = get_ingress_ip("istio-system", "istio-ingressgateway")
     sleep(5)
     validate_page("http://" + str(ip) + "/productpage")
 
 
 def test_run_0():
     print(os.linesep + "Configuring Request Routing to the v1...")
+    ip = get_ingress_ip("istio-system", "istio-ingressgateway")
     files = ["destination-rule-all.yaml", "virtual-service-all-v1.yaml"]
     for file in files:
         run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/" + file, True)
@@ -71,6 +71,7 @@ def test_run_0():
 
 def test_run_1():
     print(os.linesep + "Configuring Request Routing to the v2 based on the user identity...")
+    ip = get_ingress_ip("istio-system", "istio-ingressgateway")
     files = ["destination-rule-all.yaml", "virtual-service-reviews-jason-v2-v3.yaml"]
     for file in files:
         run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/" + file, True)
@@ -90,6 +91,7 @@ def test_run_1():
 
 def test_run_2():
     print(os.linesep + "Configuring Request Routing to the reviews v3...")
+    ip = get_ingress_ip("istio-system", "istio-ingressgateway")
     files = ["destination-rule-all.yaml", "virtual-service-reviews-v3.yaml"]
     for file in files:
         run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/" + file, True)
