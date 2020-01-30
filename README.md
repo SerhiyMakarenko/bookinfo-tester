@@ -30,7 +30,8 @@ git clone git@github.com:SerhiyMakarenko/bookinfo-tester.git
 
 To save your time I have prepared the bash script that will prepare the environment for running python tester script. Since the script should install additional packages and create a minikube user it requires superuser privileges. Please, run it under root:
 ```
-./tools/environment_setup.sh
+cd tools
+./environment_setup.sh
 ```
 
 After that please login into the system using newly created `minikube` user and install required python dependencies:
@@ -40,7 +41,8 @@ pip3 install -r pip3 install -r ./bookinfo_tester/requirements.txt
 
 When dependencies would be installed, please run the tester script:
 ```
-./bookinfo_tester/bookinfo_tester.py
+cd bookinfo_tester
+./bookinfo_tester.py
 ```
 
 ## Some explanations of the chosen architecture
