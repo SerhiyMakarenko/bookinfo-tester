@@ -17,7 +17,7 @@ if __name__ == "__main__":
     print(os.linesep + "Installing MetalLB Load Balancer...")
     download_file("https://github.com/metallb/metallb/archive/v0.8.3.zip")
     run_command("kubectl create -f /tmp/metallb-0.8.3/manifests/metallb.yaml", True)
-    run_command("kubectl create -f ../tools/metallb.yaml", True)
+    run_command("kubectl create -f ../tools/metallb_configmap.yaml", True)
     print("Waiting till pods for MetalLB will be ready...")
     wait_pods_are_running("metallb-system")
 
@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     print(os.linesep + "Configuring Request Routing to the v2 based on the user identity...")
     run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/destination-rule-all.yaml", True)
-    run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml", True)
+    run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/virtual-service-reviews-jason-v2-v3.yaml", True)
     sleep(2)
     print(os.linesep + "Testing reviews v2 as user jason...")
     for item in range(0, 20):
@@ -67,9 +67,9 @@ if __name__ == "__main__":
         reviews_v1_testing("http://" + str(ip) + "/api/v1/products/" + str(item) + "/reviews")
     print("Cleaning up after test...")
     run_command("kubectl delete -f /tmp/istio-1.0.5/samples/bookinfo/networking/destination-rule-all.yaml", True)
-    run_command("kubectl delete -f /tmp/istio-1.0.5/samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml", True)
+    run_command("kubectl delete -f /tmp/istio-1.0.5/samples/bookinfo/networking/virtual-service-reviews-jason-v2-v3.yaml", True)
 
-    print(os.linesep + "Configuring Request Routing to the v3...")
+    print(os.linesep + "Configuring Request Routing to the reviews v3...")
     run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/destination-rule-all.yaml", True)
     run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/virtual-service-reviews-v3.yaml", True)
     sleep(2)
