@@ -46,7 +46,7 @@ tar -zxvf helm-v2.16.1-linux-amd64.tar.gz
 install linux-amd64/helm /usr/local/bin/
 
 # Add minikube user
-useradd -p $(openssl passwd -1 minikube) minikube
+useradd -p $(openssl passwd -1 minikube) minikube -s /bin/bash -m
 
 # Setup permissions
 adduser minikube libvirt
