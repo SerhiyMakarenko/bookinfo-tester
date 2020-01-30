@@ -38,6 +38,7 @@ if __name__ == "__main__":
     wait_pods_are_running("default")
     run_command("kubectl apply -f /tmp/istio-1.0.5/samples/bookinfo/networking/bookinfo-gateway.yaml", True)
     ip = get_ingress_ip("istio-system", "istio-ingressgateway")
+    sleep(5)
     validate_page("http://" + str(ip) + "/productpage")
 
     print(os.linesep + "Testing Bookinfo App API...")
