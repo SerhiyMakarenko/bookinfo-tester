@@ -20,7 +20,7 @@ To start working please clone this project on the machine where the script will 
 
 - 4 Core CPU;
 - 8 Gb RAM;
-- 20 Gb HDD.
+- 30 Gb free HDD space.
 
 ## Environment preparation
 Please, clone this repo into the home directory of the root user:
@@ -85,4 +85,5 @@ Listed below things clear for me now:
 
 - Invoking `kubectl` command for applying manifests. This approach was chosen to cut corners and save development time. Unfortunately, K8s API does not provide an ability to deploy a set of resources from a single YAML manifest with a mix of resources. To implement those steps in the python-way require developing custom parser. This task beyond the scope of this work;
 - Clear and simple error handling during subprocess invocation.
-- Increasing test coverage. I cover in the script only Request Routing cases. As an improvement test range can be extended to cover route cases based on user identity, Injecting an HTTP delays fault, weight-based routing and more.
+- Increasing test coverage. I cover in the script only Request Routing cases. As an improvement test range can be extended to cover route cases based on user identity, Injecting an HTTP delays fault, weight-based routing and more;
+- Make `bookinfo_tester.py` simplier and elegant.

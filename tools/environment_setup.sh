@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Check available resources
+if [ `grep -c processor /proc/cpuinfo` -lt "4" ]; then
+	echo "Minimum CPU number should be not less than 4, aborting!"
+	exit 1
+fi
+
+if [ `grep MemTotal /proc/meminfo | awk '{print $2}'` -lt "8033440" ]; then
+	echo "System should have not less than 8 Gb of RAM, aborting!"
+	exit 1
+fi
+
+if [[ `df -k --output=avail "$PWD" | tail -n1` -lt 31457280 ]]; then
+    echo "System should have not less than 30 Gb of free HDD, aborting!"
+	exit 1
+fi
+
 # kubectl installation
 apt-get update && sudo apt-get install -y apt-transport-https
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
