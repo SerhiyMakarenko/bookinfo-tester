@@ -36,7 +36,7 @@ cd tools
 
 After that please login into the system using newly created `minikube` user and install required python dependencies:
 ```
-pip3 install -r pip3 install -r ./bookinfo_tester/requirements.txt
+pip3 install -r ./bookinfo_tester/requirements.txt
 ```
 
 When dependencies would be installed, please run the tester script:
@@ -59,7 +59,7 @@ Folder contains listed below files:
 ```
 About aim of the `environment_setup.sh` I told earler.
 
-`minikube-net.xml` provides a modified network config for `minikube-net` KVM network that will be created by default during minikube run. I have made this to free IP addresses after `192.168.39.200` from DHCP to give some from this range to MetalLB.
+`minikube-net.xml` provides a modified network config for `minikube-net` KVM network that usually created by default during minikube run. I have made this to free IP addresses in range `192.168.39.200/29` from DHCP to give them to MetalLB.
 
 `metallb_configmap.yaml` -- config map for K8s to assign IP addresses to Istio ingress load balancer.
 
